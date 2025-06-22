@@ -38,13 +38,10 @@
 
 2) 源码已上传GitHub：https://github.com/HuQingmiao/homewk-trans
 
-3) 常规部署包的已上传网盘， 链接: https://pan.baidu.com/s/1xcFhvkqhoYqPgqbqYjtg4A?pwd=p4e4 提取码: p4e4
-   如果要部署、运行，参考章节四。
-
-4) Docker镜像制作失败，原因是拉取不到jdk21的镜像，尝试了好几个镜像源都不行。
+3) Docker镜像制作失败，原因是拉取不到jdk21的镜像，尝试了好几个镜像源都不行，所以只提供常规部署包。
 
 
-### 四. 虚机或常规服务器下的运行说明
+### 四. 常规部署包的运行说明
 1) 将项目根目录下的文件 homewk-trans.zip 解压到任意目录
 2) 进入解压后的目录 homewk-trans ， 执行 start.bat 或 start.sh 启动服务
 3) 访问首页：http://ip:9090/ ，就可以看到交易记录相关的新、删、改、查功能
