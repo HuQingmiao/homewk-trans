@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易记录管理</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+</head>
+<body>
+<div class="container">
+    <h1>交易记录管理</h1>
+    <!-- 按钮栏 -->
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-sm layui-bg-blue" id="addData">新增交易</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-bg-red" id="delData">删除交易</button>
+    </div>
+    <!-- 查询条件 -->
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">查询字段</label>
+            <div class="layui-input-block">
+                <select name="qryField" lay-filter="qryField">
+                    <option value="accountNo">交易账号</option>
+                    <option value="transType">交易类型</option>
+                    <option value="transChannel">交易渠道</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">查询内容</label>
+            <div class="layui-input-block" id="qry_text_box">
+                <input type="text" name="qryText"  placeholder="请输入查询内容" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width: 100px;">交易时间(起)</label>
+                <div class="layui-input-inline layui-input-wrap">
+                    <input type="text" name="transBeginTime" id="transBeginTime" lay-verify="required"
+                           placeholder="yyyy-MM-dd HH:mm" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width: 100px;">交易时间(止)</label>
+                <div class="layui-input-inline layui-input-wrap">
+                    <input type="text" name="transEndTime" id="transEndTime" lay-verify="required"
+                           placeholder="yyyy-MM-dd HH:mm" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button type="submit" class="layui-btn" lay-submit lay-filter="query_list_btn">查询</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 表格 -->
+    <table id="transactionTable" lay-filter="transactionTable"></table>
+
+    <!-- 编辑模版 -->
+    <script type="text/html" id="table_opt_toolbar">
+        <button type="button" class="layui-btn layui-btn-xs layui-bg-blue" lay-event="edit">编辑</button>
+        <button type="button" class="layui-btn layui-btn-xs layui-bg-red" lay-event="del">删除</button>
+    </script>
+
+    <!-- 新增模版 -->
+    <script type="text/html" id="add_transaction">
+        <form class="layui-form" style="margin: 10px;" id="add_transaction_filter" lay-filter="add-transaction-filter">
+
+            <div class="layui-form-item" style="display: none;">
+                <label class="layui-form-label">交易ID</label>
+                <div class="layui-input-block">
+                    <input type="text" name="id" minlength="10" maxlength="20"
+                           placeholder="" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">交易账号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="accountNo" lay-verify="required" minlength="10" maxlength="20"
+                           placeholder="账号长度需在10到20位之间" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">交易类型</label>
+                <div class="layui-input-block">
+                    <select name="transType" lay-filter="transType">
+                        <option value="DEPOSIT">存款</option>
+                        <option value="WITHDRAWAL">取款</option>
+                        <option value="TRANSFER">转账</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">金额</label>
+                <div class="layui-input-block">
+                    <input type="number" name="amount" id="amount" lay-verify="required" placeholder="请输入金额" autocomplete="off"
+                           class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">币种</label>
+                <div class="layui-input-block">
+                    <select name="currency" lay-filter="transType">
+                        <option value="RMB">人民币</option>
+                        <option value="USD">美元</option>
+                        <option value="JPR">日元</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">交易后余额</label>
+                <div class="layui-input-block">
+                    <input type="number" name="balanceAfter"  lay-verify="required" placeholder="请输入交易后余额"
+                           autocomplete="off"
+                           class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">交易渠道</label>
+                <div class="layui-input-block">
+                    <select name="transChannel" lay-filter="transChannel">
+                        <option value="ATM">ATM机</option>
+                        <option value="POS">POS机</option>
+                        <option value="MOBILE_APP">网银APP</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">交易时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="transTime" id="add_transTime" lay-verify="required"
+                            autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </form>
+    </script>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./layui/layui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
