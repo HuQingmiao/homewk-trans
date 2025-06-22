@@ -36,7 +36,7 @@
 1) 最终作品已部署到公网环境，请登录：http://111.230.96.181:9090/ ;
    如需查阅API文档，请访问： http://111.230.96.181:9090/swagger-ui.html 
 
-2) 源码已上传GitHub：https://github.com/HuQingmiao/homewk-trans
+2) 源码已上传GitHub：https://github.com/HuQingmiao/homewk-trans (ssh: git@github.com:HuQingmiao/homewk-trans.git)  
 
 3) Docker镜像制作失败，原因是拉取不到jdk21的镜像，尝试了好几个镜像源都不行，所以只提供常规部署包。
 
