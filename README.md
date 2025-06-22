@@ -33,7 +33,7 @@
 
    
 ### 三. 项目产出情况
-1) 最终产品已部署到公网环境，请登录：http://111.230.96.181:9090/ ;
+1) 最终作品已部署到公网环境，请登录：http://111.230.96.181:9090/ ;
    如需查阅API文档，请访问： http://111.230.96.181:9090/swagger-ui.html 
 
 2) 源码已上传GitHub：https://github.com/HuQingmiao/homewk-trans
@@ -41,9 +41,9 @@
 3) Docker镜像制作失败，原因是拉取不到jdk21的镜像，尝试了好几个镜像源都不行，所以只提供常规部署包。
 
 
-### 四. 常规部署包的运行说明
+### 四. 常规部署包的运行说明 （依赖jdk21的运行环境）
 1) 将项目根目录下的文件 homewk-trans.zip 解压到任意目录
-2) 进入解压后的目录 homewk-trans ， 执行 start.bat 或 start.sh 启动服务
+2) 进入解压后的目录 homewk-trans ， 执行 start.bat 或 start.sh 启动服务 
 3) 访问首页：http://ip:9090/ ，就可以看到交易记录相关的新、删、改、查功能
 4) 如需查阅API文档，请访问：http://ip:9090/swagger-ui.html
 
