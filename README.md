@@ -31,28 +31,38 @@
 4) 对用户最近的查询条件及查询结果进行缓存。 这样，当用户来回翻页、反复点击查询时，系统就可以直接从缓存获取数据了。
    每次查询前，系统会将本次查询条件与上次的查询条件进行比较，如果查询条件没有变化，则直接从缓存获取；否则，重新查询并更新缓存。
 
+   
+### 三. 项目产出情况
+1) 最终产品已部署到公网环境，请登录：http://111.230.96.181:9090/ ;
+   如需查阅API文档，请访问： http://111.230.96.181:9090/swagger-ui.html 
 
-### 三. Docker镜像制作及运行说明
-1) 将项目根目录下的文件 homewk-trans.zip 解压到任意目录
-2) 进入解压后的目录 homewk-trans ， 执行：`docker build -t homewk-trans` 创建镜像。（但这一步，我没执行成功，因为是拉取不到JAVA21的镜像）
-3) 执行: `docker save -o  homewk-trans.tar  homewk-trans ` 保存镜像。
+2) 源码已上传GitHub：https://github.com/HuQingmiao/homewk-trans
 
-4) 进入docker目录，执行：`docker load -i homewk-trans.tar` 导入镜像。
-5) 执行：`docker run -dp 9090:9090  homewk-trans` 启动容器。
-6) 访问首页：http://localhost:9090/ ，就可以看到交易记录相关的新、删、改、查功能。
-7) 如需查阅API文档，请访问：http://localhost:9090/swagger-ui.html
+3) 常规部署包的已上传网盘， 链接: https://pan.baidu.com/s/1xcFhvkqhoYqPgqbqYjtg4A?pwd=p4e4 提取码: p4e4
+   如果要部署、运行，参考章节四。
 
-注：如果因为拉取JKD21镜像失败，请在有java21的环境，按下面章节四的步骤制运行。
+4) Docker镜像制作失败，原因是拉取不到jdk21的镜像，尝试了好几个镜像源都不行。
 
 
 ### 四. 虚机或常规服务器下的运行说明
 1) 将项目根目录下的文件 homewk-trans.zip 解压到任意目录
 2) 进入解压后的目录 homewk-trans ， 执行 start.bat 或 start.sh 启动服务
-3) 访问首页：http://localhost:9090/ ，就可以看到交易记录相关的新、删、改、查功能
-4) 如需查阅API文档，请访问：http://localhost:9090/swagger-ui.html 
+3) 访问首页：http://ip:9090/ ，就可以看到交易记录相关的新、删、改、查功能
+4) 如需查阅API文档，请访问：http://ip:9090/swagger-ui.html
 
 
-### 五. 依赖包说明（Java 和 Spring Boot以外的）
+### 五. Docker镜像制作及运行说明
+1) 将项目根目录下的文件 homewk-trans.zip 解压到任意目录
+2) 进入解压后的目录 homewk-trans ， 执行：`docker build -t homewk-trans` 创建镜像。（这一步，没执行成功，因为是拉取不到jdk21的镜像）
+3) 执行: `docker save -o  homewk-trans.tar  homewk-trans ` 保存镜像。
+
+4) 进入docker目录，执行：`docker load -i homewk-trans.tar` 导入镜像。
+5) 执行：`docker run -dp 9090:9090  homewk-trans` 启动容器。
+6) 访问首页：http://ip:9090/ ，就可以看到交易记录相关的新、删、改、查功能。
+7) 如需查阅API文档，请访问：http://ip:9090/swagger-ui.html
+
+
+### 六. 依赖包说明（Java 和 Spring Boot以外的）
 1) junit-jupiter         用于单元测试
 2) springdoc-openapi     用于生成API文档、调试接口
 3) aspectjweaver         用于异常处理切面类, 见：com.hsbc.homewk.trans.common.ResultAspect

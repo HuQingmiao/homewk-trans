@@ -54,6 +54,8 @@ public class TransactionService {
 
     public Transaction update(String userId, TransactionUpdCmd transactionUpdCmd) {
         Transaction t = transRepository.update(transactionUpdCmd);
+        cache.remove(userId); 
+        lstQueryMap.remove(userId);
         return t;
     }
 

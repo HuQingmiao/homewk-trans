@@ -95,6 +95,32 @@ public class TransactionRepository {
         if (t == null) {
             throw new IllegalArgumentException("交易记录不存在");
         }
+
+        // 从索引中删除旧的索引
+        List<Transaction> tList = accountNoIdxMap.get(t.getAccountNo());
+        if (tList != null) {
+            tList.remove(t);
+        }
+        tList = transTypeIdxMap.get(t.getTransType());
+        if (tList != null) {
+            tList.remove(t);
+        }
+        tList = transChannelIdxMap.get(t.getTransChannel());
+        if (tList != null) {
+            tList.remove(t);
+        }
+
+        // 为修改后的交易设置索引
+        accountNoIdxMap.computeIfAbsent(transactionUpdCmd.getAccountNo(), k -> new ArrayList<>());
+        accountNoIdxMap.get(transactionUpdCmd.getAccountNo()).add(t);
+
+        transTypeIdxMap.computeIfAbsent(transactionUpdCmd.getTransType(), k -> new ArrayList<>());
+        transTypeIdxMap.get(transactionUpdCmd.getTransType()).add(t);
+
+        transChannelIdxMap.computeIfAbsent(transactionUpdCmd.getTransChannel(), k -> new ArrayList<>());
+        transChannelIdxMap.get(transactionUpdCmd.getTransChannel()).add(t);
+
+        // 更新交易记录
         t.setAccountNo(transactionUpdCmd.accountNo());
         t.setAmount(transactionUpdCmd.amount());
         t.setCurrency(transactionUpdCmd.currency());
