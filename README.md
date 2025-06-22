@@ -38,7 +38,7 @@
 
 2) 源码已上传GitHub：https://github.com/HuQingmiao/homewk-trans
 
-3) 常规部署包的已上传网盘， 链接: https://pan.baidu.com/s/1xcFhvkqhoYqPgqbqYjtg4A?pwd=p4e4 提取码: p4e4
+3) 常规部署包的已上传网盘，链接: https://pan.baidu.com/s/1ZZhWjpcEG1M1ff-nfGdjLQ?pwd=abcd  提取码: abcd
    如果要部署、运行，参考章节四。
 
 4) Docker镜像制作失败，原因是拉取不到jdk21的镜像，尝试了好几个镜像源都不行。
