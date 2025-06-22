@@ -5,6 +5,11 @@ cd `dirname $0`
 APP_NAME=homewk-trans
 ENV=local
 
+# 检查logs目录是否存在，如果不存在则创建
+if [ ! -d "logs" ]; then
+    mkdir -p logs
+fi
+
 STDOUT_FILE=logs/stdout.log
 
 
@@ -18,7 +23,6 @@ fi
 
 
 # JVM_MEM_OPTS="-XX:ParallelGCThreads=3 -Xms3072m -Xmx6144m -XX:MaxPermSize=512m"
-JVM_MEM_OPTS="-XX:ParallelGCThreads=3 -Xms3072m -Xmx4096m -XX:MaxPermSize=512m"
 
 echo  "java $JVM_MEM_OPTS -jar homewk-trans-*.jar   --spring.profiles.active=$ENV"
 nohup  java $JVM_MEM_OPTS -jar homewk-trans-*.jar   --spring.profiles.active=$ENV > $STDOUT_FILE 2>&1 &
