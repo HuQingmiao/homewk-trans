@@ -53,7 +53,7 @@
 
 
 ### 六. Docker环境下的运行
-1) 将根目录下的镜像文件：homewk-trans.tar, 上传到目标机。
+1) 将镜像文件：homewk-trans.tar, 上传到目标机。
 2) 进入docker目录，执行：`docker load -i homewk-trans.tar` 导入镜像。
 3) 执行：`docker run -dp 9090:9090  homewk-trans` 启动容器。
 4) 访问首页：http://ip:9090/ ，就可以看到交易记录相关的新、删、改、查功能。
