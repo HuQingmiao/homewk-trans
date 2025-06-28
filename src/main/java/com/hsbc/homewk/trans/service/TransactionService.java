@@ -39,23 +39,23 @@ public class TransactionService {
 
     public Transaction save(String userId, TransactionNewCmd transactionNewCmd) {
         Transaction t = transRepository.save(transactionNewCmd);
-        cache.remove(userId);  // 当用户新增某条交易记录时, 要同时清空缓存. 否则, 翻页时, 不会显示当前新增的记录
-        lstQueryMap.remove(userId);
+        cache.clear();  // 当用户新增某条交易记录时, 要同时清空缓存(包括清空其它用户的缓存). 否则, 翻页时, 不会显示当前新增的记录
+        lstQueryMap.clear();
         return t;
     }
 
     public void delete(String userId, String id) {
         boolean deleted = transRepository.delete(id);  // 根据id删除交易记录
         if (deleted) {
-            cache.remove(userId);  // 当用户删除交易记录时, 要同时清空缓存. 否则, 翻页时, 仍会显示当前新增的记录
-            lstQueryMap.remove(userId);
+            cache.clear();  // 当用户删除某条交易记录时, 要同时清空缓存(包括清空其它用户的缓存). 否则, 翻页时, 还会显示当前已删除的记录
+            lstQueryMap.clear();
         }
     }
 
     public Transaction update(String userId, TransactionUpdCmd transactionUpdCmd) {
-        Transaction t = transRepository.update(transactionUpdCmd);
-        cache.remove(userId); 
-        lstQueryMap.remove(userId);
+        Transaction t = transRepository.update(transactionUpdCmd);  // 当用户修改某条交易记录时, 要同时清空缓存(包括清空其它用户的缓存). 否则, 翻页时, 会显示修改前数据
+        cache.clear();
+        lstQueryMap.clear();
         return t;
     }
 
