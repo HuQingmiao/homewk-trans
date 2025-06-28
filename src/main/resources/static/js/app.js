@@ -289,17 +289,19 @@ $(function () {
                             return;
                         }
                         showLoading();
+                        // 处理交易时间以确保使用本地时间
+                        var transTime = new Date(data.transTime);
+                        var transTimeUTC = new Date(transTime.getTime() - transTime.getTimezoneOffset() * 60000);
                         $.ajax({
                             url: isAdd ? '/api/transaction' : `/api/transaction/${initData.id}`,
                             type: isAdd ? 'post' : 'put',
                             data: JSON.stringify(Object.assign({}, data, {
                                 amount: parseFloat(data.amount),
                                 balanceAfter: parseFloat(data.balanceAfter),
-                                transTime: new Date(data.transTime).toISOString()
+                                transTime: transTimeUTC.toISOString()
                             })),
                             contentType: 'application/json;charset=UTF-8',
                             success: function (res) {
-                                // layer.close(layIndex);
                                 hideLoading();
                                 if (res.success) {
                                     layer.msg(`${tipText}成功`, {icon: 1});
@@ -322,15 +324,22 @@ $(function () {
                     }
                     form.render('select');
 
-                    var now = new Date();
-                    var year = now.getFullYear();
-                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-                    var day = ("0" + now.getDate()).slice(-2);
-                    var hours = ("0" + now.getHours()).slice(-2);
-                    var minutes = ("0" + now.getMinutes()).slice(-2);
-                    var seconds = ("0" + now.getSeconds()).slice(-2);
-                    var currentTime = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-                    $('#add_transTime').val(currentTime);
+                    if (isAdd) {
+                        var now = new Date();
+                        var year = now.getFullYear();
+                        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                        var day = ("0" + now.getDate()).slice(-2);
+                        var hours = ("0" + now.getHours()).slice(-2);
+                        var minutes = ("0" + now.getMinutes()).slice(-2);
+                        var seconds = ("0" + now.getSeconds()).slice(-2);
+                        var currentTime = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+                        $('#add_transTime').val(currentTime);
+                    }
+                    else{
+                        var dt = initData.transTime;
+                        var formattedDateStr = dt.replace('T', ' ');
+                        $('#add_transTime').val(formattedDateStr);
+                    }
 
                     // 初始化日期
                     laydate.render({
@@ -341,6 +350,8 @@ $(function () {
                 }
             });
         }
+
+
 
         /// 删除函数
         function handleDeleteById(accountNo, id) {
